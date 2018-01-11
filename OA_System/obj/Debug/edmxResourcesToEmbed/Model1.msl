@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OA_ItemModelStoreContainer" CdmEntityContainer="OA_ItemEntities">
+    <EntitySetMapping Name="ApprovalDescibe">
+      <EntityTypeMapping TypeName="OA_ItemModel.ApprovalDescibe">
+        <MappingFragment StoreEntitySet="ApprovalDescibe">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ApprovalId" ColumnName="ApprovalId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CompleteTime" ColumnName="CompleteTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ApprovalForm">
+      <EntityTypeMapping TypeName="OA_ItemModel.ApprovalForm">
+        <MappingFragment StoreEntitySet="ApprovalForm">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ApprovalName" ColumnName="ApprovalName" />
+          <ScalarProperty Name="ApprovalContent" ColumnName="ApprovalContent" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ApprovalStatus" ColumnName="ApprovalStatus" />
+          <ScalarProperty Name="ApprovalTime" ColumnName="ApprovalTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AttendanceRecordInfo">
+      <EntityTypeMapping TypeName="OA_ItemModel.AttendanceRecordInfo">
+        <MappingFragment StoreEntitySet="AttendanceRecordInfo">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SignInTime" ColumnName="SignInTime" />
+          <ScalarProperty Name="ReturnTime" ColumnName="ReturnTime" />
+          <ScalarProperty Name="IsStatus" ColumnName="IsStatus" />
+          <ScalarProperty Name="AttendDescribe" ColumnName="AttendDescribe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AttendanceSheet">
+      <EntityTypeMapping TypeName="OA_ItemModel.AttendanceSheet">
+        <MappingFragment StoreEntitySet="AttendanceSheet">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="WorkTime" ColumnName="WorkTime" />
+          <ScalarProperty Name="ClosingTime" ColumnName="ClosingTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="departmentInfo">
+      <EntityTypeMapping TypeName="OA_ItemModel.departmentInfo">
+        <MappingFragment StoreEntitySet="departmentInfo">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DepartId" ColumnName="DepartId" />
+          <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+          <ScalarProperty Name="DepartmentDescribe" ColumnName="DepartmentDescribe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MailboxTable">
+      <EntityTypeMapping TypeName="OA_ItemModel.MailboxTable">
+        <MappingFragment StoreEntitySet="MailboxTable">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="MailSend" ColumnName="MailSend" />
+          <ScalarProperty Name="MailReceive" ColumnName="MailReceive" />
+          <ScalarProperty Name="IsStatus" ColumnName="IsStatus" />
+          <ScalarProperty Name="MailTime" ColumnName="MailTime" />
+          <ScalarProperty Name="MailContent" ColumnName="MailContent" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NoticeInfo">
+      <EntityTypeMapping TypeName="OA_ItemModel.NoticeInfo">
+        <MappingFragment StoreEntitySet="NoticeInfo">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="NoticeTitle" ColumnName="NoticeTitle" />
+          <ScalarProperty Name="NoticeContent" ColumnName="NoticeContent" />
+          <ScalarProperty Name="WriteTime" ColumnName="WriteTime" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="IsStatus" ColumnName="IsStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PermissionsInfo">
+      <EntityTypeMapping TypeName="OA_ItemModel.PermissionsInfo">
+        <MappingFragment StoreEntitySet="PermissionsInfo">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="fatherId" ColumnName="fatherId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PositionInfo">
+      <EntityTypeMapping TypeName="OA_ItemModel.PositionInfo">
+        <MappingFragment StoreEntitySet="PositionInfo">
+          <ScalarProperty Name="PositionSalary" ColumnName="PositionSalary" />
+          <ScalarProperty Name="DepteId" ColumnName="DepteId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+          <ScalarProperty Name="PositionName" ColumnName="PositionName" />
+          <ScalarProperty Name="PositionDescribe" ColumnName="PositionDescribe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PremissAsUser">
+      <EntityTypeMapping TypeName="OA_ItemModel.PremissAsUser">
+        <MappingFragment StoreEntitySet="PremissAsUser">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ParenId" ColumnName="ParenId" />
+          <ScalarProperty Name="PremissId" ColumnName="PremissId" />
+          <ScalarProperty Name="PremissUrl" ColumnName="PremissUrl" />
+          <ScalarProperty Name="PremissName" ColumnName="PremissName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SalaryTable">
+      <EntityTypeMapping TypeName="OA_ItemModel.SalaryTable">
+        <MappingFragment StoreEntitySet="SalaryTable">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="PositionSalary" ColumnName="PositionSalary" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserInfo">
+      <EntityTypeMapping TypeName="OA_ItemModel.UserInfo">
+        <MappingFragment StoreEntitySet="UserInfo">
+          <ScalarProperty Name="UserNum" ColumnName="UserNum" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+          <ScalarProperty Name="UserPwd" ColumnName="UserPwd" />
+          <ScalarProperty Name="UserAge" ColumnName="UserAge" />
+          <ScalarProperty Name="UserSex" ColumnName="UserSex" />
+          <ScalarProperty Name="UserTel" ColumnName="UserTel" />
+          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+          <ScalarProperty Name="UserAddress" ColumnName="UserAddress" />
+          <ScalarProperty Name="BuMenId" ColumnName="BuMenId" />
+          <ScalarProperty Name="ZhiWeiId" ColumnName="ZhiWeiId" />
+          <ScalarProperty Name="EntryTime" ColumnName="EntryTime" />
+          <ScalarProperty Name="QuitId" ColumnName="QuitId" />
+          <ScalarProperty Name="XueLi" ColumnName="XueLi" />
+          <ScalarProperty Name="OccupationalStatus" ColumnName="OccupationalStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="userAsPersion">
+      <EntityTypeMapping TypeName="OA_ItemModel.userAsPersion">
+        <MappingFragment StoreEntitySet="userAsPersion">
+          <ScalarProperty Name="preId" ColumnName="preId" />
+          <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

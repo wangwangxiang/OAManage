@@ -1,0 +1,8 @@
+F:\OA项目1\OA项目1\OA_System\Model\bin\Debug\Model.dll.config
+F:\OA项目1\OA项目1\OA_System\Model\bin\Debug\Model.dll
+F:\OA项目1\OA项目1\OA_System\Model\bin\Debug\Model.pdb
+F:\OA项目1\OA项目1\OA_System\Model\bin\Debug\EntityFramework.dll
+F:\OA项目1\OA项目1\OA_System\Model\bin\Debug\EntityFramework.xml
+F:\OA项目1\OA项目1\OA_System\Model\bin\Debug\zh-Hans\EntityFramework.resources.dll
+F:\OA项目1\OA项目1\OA_System\Model\obj\Debug\Model.dll
+F:\OA项目1\OA项目1\OA_System\Model\obj\Debug\Model.pdb

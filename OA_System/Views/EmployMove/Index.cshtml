@@ -1,0 +1,778 @@
+﻿
+@{
+    
+    List<OA_System.UserInfo> ulist = ViewBag.userList as List<OA_System.UserInfo>;
+    List<OA_System.departmentInfo> dlist = ViewBag.dlist as List<OA_System.departmentInfo>;
+    List<OA_System.PositionInfo> plist = ViewBag.plist as List<OA_System.PositionInfo>;
+        
+    
+}
+
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui/css/H-ui.min.css">
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui.admin/css/H-ui.admin.css">
+<link rel="stylesheet" type="text/css" href="~/H-Ui/lib/Hui-iconfont/1.0.8/iconfont.css">
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui.admin/skin/default/skin.css" id="skin">
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui.admin/css/style.css">
+
+<nav class="breadcrumb"><i class="Hui-iconfont"></i> 首页 <span class="c-gray en">&gt;</span> 人事变动  <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont"></i></a></nav>
+
+<div class="page-container">
+	<div class="text-c">
+	<form id="queryform">
+         <input type="hidden" id="currentPage" name="currentPage" />
+		<input class="input-text" style="width:250px" placeholder="姓名" id="UserName" name="UserName" type="text">
+        <input class="input-text" style="width:250px" placeholder="编号" id="UserNum" name="UserNum" type="text">
+
+         <select id="selStatus" name="selStastus">
+             <option value="-1">请选择</option>
+               <option value="0">在职</option>
+               <option value="1">离职</option>
+                <option value="2">实习</option>
+               <option value="3">退休</option>
+        </select>
+
+		<button type="submit" class="btn btn-success" id="btnsumit" name="btnsumit"><i class="Hui-iconfont"></i> 搜用户</button>
+
+
+        </form>
+	</div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" id="tuixiuBtn" class="btn btn-danger radius"><i class="Hui-iconfont"></i> 退休</a> 
+        <a href="javascript:;"  class="btn btn-danger radius" id="JieGu"><i class="Hui-iconfont"></i>离职</a>
+         <a href="javascript:;"  class="btn btn-danger radius" id="shiXi"><i class="Hui-iconfont"></i>实习</a>
+        <a href="javascript:;"  class="btn btn-primary radius" id="btnMoveEmploy"><i class="Hui-iconfont"></i> 部门变动</a></span> </div>
+	<table class="table table-border table-bordered table-bg" id="mytable">
+		    <thead>
+      <tr class="text-c">
+        <th><input type="checkbox" name="" id="btncheck" value=""></th>
+        <th>编号</th>
+        <th>用户名</th>
+        <th>真实姓名</th>
+        <th>电话</th>
+        <th>邮箱</th>
+        <th>地址</th>
+       <th>性别</th>
+          <th>年龄</th>
+        <th>入职时间</th>
+          <th>离职时间</th>
+        <th>状态</th>
+          <th>部门</th>
+          <th>职位</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (OA_System.UserInfo item in ulist)
+            {
+
+               
+      <tr class="text-c">
+        
+        <td><input type="checkbox" value="@item.ID"  class="userNum" name="userNum"></td>
+        <td>@item.UserNum</td>
+       <td>@item.LoginName</td>
+          <td>@item.UserName</td>
+        <td>@item.UserTel</td>
+        <td>@item.UserEmail</td>
+        <td>@item.UserAddress</td>
+          
+        @{
+            
+                if (item.UserSex == 0)
+                {
+                    <td>男</td>;
+                }
+                else
+                {
+                   <td>女</td>;
+                }
+            
+            }
+        <td class="text-l">@item.UserAge</td>
+        <td>@item.EntryTime</td>
+          <td>@item.QuitId</td>
+          @{
+              if(item.OccupationalStatus==0){
+        <td class="user-status"><span class="label label-success">在职</span></td>
+             }
+                if (item.OccupationalStatus == 1)
+                {
+                        <td class="user-status"><span class="label label-success" style="background:red;">离职</span></td>
+                }
+                
+               
+                
+                   if (item.OccupationalStatus == 2)
+                {
+                        <td class="user-status"><span class="label label-success" style="background-color:black;">实习</span></td>
+                }
+                if (item.OccupationalStatus == 3)
+                {
+                     <td class="user-status"><span class="label label-success" style="background-color:purple;">退休</span></td>
+                }
+          }
+          
+           @{if (item.BuMenId == null)
+              {
+                  <td>董事</td> 
+              }else{
+
+          foreach (var item2 in dlist)
+          {
+              if(item.BuMenId==item2.DepartId)
+              {
+             <td>@item2.DepartmentName</td>   
+          }
+          }
+          }
+        
+          }
+
+          @if (item.ZhiWeiId == 0)
+          {
+                <td>董事</td> 
+          }else{
+            
+          foreach (var item1 in plist)
+          {
+              if (item.ZhiWeiId == item1.ID)
+              {
+             <td>@item1.PositionName</td>   
+              }
+          }
+          }
+      
+
+        <td ><a title="解雇" href="#" style="text-decoration:none" class="fireBtn"><i class="Hui-iconfont"></i></a>
+
+        </td>
+            
+      </tr>
+            }
+        }
+        
+    </tbody>
+		
+	</table>
+     <div>
+            <ul class="pagination" id="pagination1"> </ul>
+        </div>
+    <form id="updateform" style="display:none;">
+        部门：
+        <select id="bumenSel">
+            
+        </select>
+        职位
+        <select id="zhiweiSel"></select>
+
+         
+
+    </form>
+
+
+</div>
+<script src="~/JS/jquery-1.9.1.min.js"></script>
+<link href="~/JS/Style/page.css" rel="stylesheet" />
+<script src="~/JS/layer/layer.js"></script>
+<script src="~/JS/jqPaginator.js"></script>
+<script>
+    $(function(){
+
+    //全选与全不选
+    var input=$(".text-c").find("th").eq(0).html();
+
+    $("#btncheck").click(function(){
+    
+        //获取当前选中的复选框的状态
+        //方法一
+        //var checkStatus=$("#btncheck").prop("checked");
+        
+
+        //var  inputLen=  $("#mytable").find("input[type='checkbox']:gt(0)").length;
+        
+        //for (var i = 0; i < inputLen; i++) {
+
+        //    if(checkStatus==true)
+        //    {
+        //        $("#mytable").find("input[type='checkbox']:gt("+i+")").prop("checked",true);
+        //    }
+        //    if(checkStatus==false)
+        //    {
+        //        $("#mytable").find("input[type='checkbox']:gt("+i+")").prop("checked",false);
+        //    }
+           
+        //}
+
+        //方法二
+
+        $("#mytable").find("input[type='checkbox']:gt(0)").prop("checked",$("#btncheck").prop("checked"));
+       
+      
+    
+    });
+    //同步选中
+    //方法一
+    //找到不属于第一个下拉列表框的点击事件
+    //$("input[type='checkbox']:not(#btncheck)").click(function(){
+        
+    //    var ischeckAll=true;
+    //    //遍历判断下拉列表框的选中状态
+    //    $("input[type='checkbox']:not(#btncheck)").each(function(index,item){
+        
+    //        if($(item).prop("checked")==false)
+    //        {
+    //            ischeckAll=false;
+    //        }
+    //        console.log($(item).prop("checked"));
+            
+    //    });
+    //    //给第一个下拉列表框赋值状态
+    //    $("#btncheck").prop("checked",ischeckAll);
+
+            
+      
+    //});
+
+    //同步选中方法二
+    $("input[type='checkbox']:not(#btncheck)").click(function(){
+    
+        $("#btncheck").prop("checked", $("input[type='checkbox']:not(#btncheck)").length==$("input[type='checkbox']:not(#btncheck):checked").length);
+    
+    });
+
+
+
+    $("#btnMoveEmploy").click(function(){
+
+      
+
+        //获取复选框选中的的值
+
+        var chLen=$("#mytable").find("input[type='checkbox']:not(#btncheck):checked").length;
+
+        if(chLen<=0)
+        {
+            layer.open({
+                title:'温馨提示',
+                content:'请选择要变动的员工',
+                btn:['确定'],
+                yes:function(){
+                    layer.closeAll();
+                }
+            });
+        }else{
+
+            if(chLen==1)
+            {
+                var checkVal=$("#mytable").find("input[type='checkbox']:not(#btncheck):checked").val();
+
+
+                //部门下拉列表框请求事件
+                layer.open({
+
+                    title:'人事变动',
+                    type:1,
+                    area:['300px','250px'],
+                    content:$("#updateform"),
+                    btn:['确定'],
+                    yes:function(){
+                        var bumenId=$("#bumenSel").val();
+                        var zhiweiId=$("#zhiweiSel").val();
+                        layer.closeAll();
+                        if(bumenId==-1&&zhiweiId==-1)
+                        {
+                            layer.open({
+                                title:'温馨提示',
+                                content:'请选择相应的部门和职位',
+                                btn:['确定'],
+                                yes:function()
+                                {
+                                    layer.closeAll();
+                                }
+                            });
+                        }else{
+
+                            $.ajax({
+
+                                url:'/EmployMove/upEmployBZById',
+                                type:'post',
+                                data:{userId:checkVal,bumenId:bumenId,zhiweiId:zhiweiId},
+                                success:function(result){
+                                    if(result.message=="success")
+                                    {
+                                        layer.open({
+                                            title:'温馨提示',
+                                            content:'变动成功',
+                                            btn:['确定'],
+                                            yes:function(){
+
+                                                layer.closeAll();
+                                                location.href="/EmployMove/Index";
+                                            }
+                                        });
+                                    }else{
+                                        layer.open({
+                                            title:'温馨提示',
+                                            content:'变动失败',
+                                            btn:['确定'],
+                                            yes:function(){
+                                                layer.closeAll();
+                                            }
+                                        });
+                                    }
+                                }
+                        
+                            });
+                        }
+
+                    }
+
+                });
+
+            }else
+            {
+                layer.open({
+                    title:'温馨提示',
+                    content:'只能选择单个员工',
+                    btn:['确定'],
+                    yes:function(){
+                        layer.closeAll();
+                    }
+                });
+            }
+        }
+
+    
+    });
+
+    
+    //单个员工解雇
+
+    $(".fireBtn").click(function(){
+    //得到当前点击的行
+        var ctr=$(this).parent().parent();
+        var ctd = ctr.find("td");
+        //得到当前选中的列
+        var ctdId=ctr.find("td").find("input[type='checkbox']").val();
+        var status=ctd.eq(11).children().html();
+            
+        if(ctdId!=""){
+
+            if(status=="离职")
+            {
+                       
+                       
+                layer.open({
+                    title:'温馨提示',
+                    content:'该员工也离职',
+                    btn:['确定'],
+                    yes:function(){
+                        
+                        layer.closeAll();
+                                          
+                    }
+                    
+                });
+                  
+            }else{
+
+                layer.open({
+                    
+                    title:'员工解雇',
+                    content:'确定解雇吗？',
+                    btn:['确定'],
+                    yes:function(){
+                        
+                        $.ajax({
+
+                            url:"/Employ/FireEmployByNum",
+                            data:{userId:ctdId},
+                            type:"post",
+                            success: function(resultData){
+                                
+                                if(resultData.message=="success")
+                                {
+                                    layer.open({
+                                        title:'温馨提示',
+                                        content:'解雇成功',
+                                        btn:['确定'],
+                                        yes:function(){
+                                            location.href="/EmployMove/Index";
+                                        }
+                                    });
+                                            
+                                }
+                            }
+
+                        })
+                        
+                    }
+                    
+                });
+            }
+        }else
+        {
+            layer.open({
+                title:'温馨提示',
+                content:'请选择员工',
+                btn:['确定'],
+                yes:function(){
+                    layer.closeAll();
+                        
+                }
+                    
+            });
+        }
+
+       
+
+    
+    });
+
+        //给部门下拉列表框添加内容
+
+    $.ajax({
+
+        url:'/employ/adddepartment',
+        type:'get',
+        success:function(result){
+
+            if(result.message=="success")
+            {
+                var content="";
+                content+="<option value='-1'>请选择</option>";
+                for (var i = 0; i < result.data.length; i++) {
+
+                    content+="<option value='"+result.data[i].ID+"'>"+result.data[i].DepartmentName+"</option>";
+    
+                }
+
+                $("#bumenSel").html(content);
+            }
+
+        }
+
+    });
+
+        //给职位表添加内容
+
+    $.ajax({
+        url:'/employ/addPositionInfo',
+        type:'get',
+        success:function(result){
+
+            if(result.message=="success")
+            {
+                    var content="";
+                    content+="<option value='-1'>请选择</option>";
+                    for (var i = 0; i < result.data.length; i++) {
+                   
+                        content+="<option value='"+result.data[i].ID+"'>"+result.data[i].PositionName+"</option>";
+
+                }
+
+                    $("#zhiweiSel").html(content);
+            }
+
+        }
+    
+    });
+
+    //搜索事件
+    $("#btnsumit").click(function () {
+      
+        //提交表单
+        $("#queryform").submit();
+        //获取当前页面的值
+        $("#currentPage").val(1);
+
+    });
+    //下拉列表框改变事件
+    $("#selStatus").change(function () {
+        $("#queryform").submit();
+        $("#currentPage").val(1);
+
+    });
+
+
+    //员工退休
+
+    $("#tuixiuBtn").click(function(){
+    
+        //获取选中的下拉列表框
+
+        var userId="";
+        var trHtml="";
+        $("#mytable").find("input[type='checkbox']:not(#btncheck):checked").each(function(){
+
+            userId+=$(this).val()+",";
+            trHtml= $(this).parent().parent().find("td").eq(11).children().html();
+           
+        });
+        if(userId!=""){
+      
+            if(trHtml!="退休"){
+                $.ajax({
+            
+                    url:'/EmployMove/UpStatusById',
+                    type:'post',
+                    data:{strUserId:userId},
+                    success:function(result){
+                
+                        if(result.message=="success")
+                        {
+                            layer.open({
+                        
+                                title:'温馨提示',
+                                content:'员工退休成功',
+                                btn:['确定'],
+                                yes:function(){
+                            
+                                    layer.closeAll();
+                                    location.href="/EmployMove/index";
+                                }
+
+                            });
+                        }
+
+                        if(result.message=="failure")
+                        {
+                            layer.open({
+                        
+                                title:'温馨提示',
+                                content:'员工退休失败',
+                                btn:['确定'],
+                                yes:function(){
+                            
+                                    layer.closeAll();
+
+                                
+                            
+                                }
+
+                            });
+                        }
+                    
+                    }
+            
+                });
+            }else
+            {
+                layer.open({
+                        
+                    title:'温馨提示',
+                    content:'该员工也退休',
+                    btn:['确定'],
+                    yes:function(){
+                            
+                        layer.closeAll();
+                            
+                    }
+
+                });
+            }
+        }else{
+            layer.open({
+                title:'温馨提示',
+                content:'请选择要退休的人员',
+                btn:['确定'],
+                yes:function(){
+                    layer.closeAll();
+                }
+            });
+        }
+
+       
+        
+    
+    });
+
+
+    //员工解雇
+    $("#JieGu").click(function(){
+    
+        var strUserId="";
+        var htmlcon="";
+
+        $("#mytable").find("input[type='checkbox']:not(#btncheck):checked").each(function(){
+        
+            strUserId+=$(this).val()+",";
+            htmlcon=$(this).parent().parent().eq(11).children().html();
+        
+        });
+
+        if(strUserId!="")
+        {
+            if(htmlcon!="离职")
+            {
+                $.ajax({
+                    url:'/EmployMove/UpEmployStatusById',
+                    type:'post',
+                    data:{strUserId:strUserId},
+                    success:function(result){
+
+                        if(result.message=="success")
+                        {
+                            layer.open({
+                                title:'温馨提示',
+                                content:'员工离职成功',
+                                btn:['确定'],
+                                yes:function(){
+                                    location.href="/EmployMove/Index";
+                                }
+                            });
+                        }
+                        if(result.message=="failure")
+                        {
+                            layer.open({
+                                title:'温馨提示',
+                                content:'员工离职失败',
+                                btn:['确定'],
+                                yes:function(){
+                                    layer.closeAll();
+                                }
+                            });
+                        }
+
+                    }
+                
+                });
+            }else{
+                layer.open({
+                    title:'温馨提示',
+                    content:'该员工也离职',
+                    btn:['确定'],
+                    yes:function(){
+                        layer.closeAll();
+                    }
+                });
+            }
+
+        }else{
+            layer.open({
+                title:'温馨提示',
+                content:'请选择要离职的人员',
+                btn:['确定'],
+                yes:function(){
+                    layer.closeAll();
+                }
+            
+            });
+        }
+    
+    });
+
+    //员工实习
+    $("#shiXi").click(function(){
+    
+        var strUserId="";
+        var htmlcont="";
+
+        $("#mytable").find("input[type='checkbox']:not(#btncheck):checked").each(function(){
+
+            strUserId+=$(this).val()+",";
+            htmlcont=$(this).parent().parent().find("td").eq(11).children().html();
+        
+        });
+       
+        if(strUserId!="")
+        {
+            if(htmlcont!="实习")
+            {
+                $.ajax({
+
+                    url:'/EmployMove/UpStatusByIdShi',
+                    type:'post',
+                    data:{strUserId:strUserId},
+                    success:function(result){
+
+                        if(result.message)
+                        {
+                            layer.open({
+                                title:'温馨提示',
+                                content:'员工改动成功',
+                                btn:['确定'],
+                                yes:function(){
+                                    location.href="/EmployMove/index";
+                                    layer.closeAll();
+                                }
+                            });
+                        }else
+                        {
+                            layer.open({
+                                title:'温馨提示',
+                                content:'员工改动失败',
+                                btn:['确定'],
+                                yes:function(){
+                                   
+                                    layer.closeAll();
+                                }
+                            });
+                        }
+
+                    }
+
+                });
+            }else
+            {
+                layer.open({
+                    title:'温馨提示',
+                    content:'该员工处于实习阶段',
+                    btn:['确定'],
+                    yes:function(){
+                        layer.closeAll();
+                    }
+                });
+            }
+
+
+        }else{
+            layer.open({
+                title:'温馨提示',
+                content:'该选择要改动的员工',
+                btn:['确定'],
+                yes:function(){
+                    layer.closeAll();
+                }
+            });
+        }
+    
+    });
+
+
+
+
+    
+    $.jqPaginator("#pagination1", {
+        totalPages:@ViewBag.tocount,
+                visiblePages: 10,
+                currentPage:@ViewBag.currentPage,
+                first: '<li class="first"><a href="javascript:;">首页</a></li>',
+                prev: '<li class="prev"><a href="javascript:;">上一页</a></li>',
+                next: '<li class="next"><a href="javascript:;">下一页</a></li>',
+                last: '<li class="last"><a href="javascript:;">尾页</a></li>',
+                page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+                onPageChange: function (num, type) {
+
+                    if (type != "init") {
+                        
+
+                        //赋值当前页
+
+                        $("#currentPage").val(num);
+
+                        $("#queryform").submit();
+                    }
+
+                }
+
+
+
+
+    });
+
+  });
+
+
+
+</script>

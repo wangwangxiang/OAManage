@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "首页";
+    Layout = "~/Views/LayoutSite/IndexLayoutPage.cshtml";
+    
+    }
+
+<head>
+    <title>我的桌面</title>
+
+    <style>
+
+        #styleA  a{
+            width:32%;
+            text-align:center;
+            height:20%;
+        }
+
+    </style>
+
+</head>
+<body>
+<div style="margin-top:3%;width:98%" id="styleA">
+    
+    <a class="btn btn-primary radius" onclick="picture_add('我的邮件','picture-add.html')" href="javascript:;"><i class="Hui-iconfont"></i> 我的邮件</a>
+    <a class="btn btn-primary radius" onclick="picture_add('我的日程','picture-add.html')" href="javascript:;"><i class="Hui-iconfont"></i> 我的日程</a>
+     <a class="btn btn-primary radius" onclick="picture_add('我的日程','picture-add.html')" href="javascript:;"><i class="Hui-iconfont"></i> 打卡</a>
+    </div>
+
+
+
+
+ </body>

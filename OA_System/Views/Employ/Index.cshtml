@@ -1,0 +1,362 @@
+﻿<head>
+
+    @{
+        
+        List<OA_System.UserInfo> ulist = ViewBag.ulist as List<OA_System.UserInfo>;
+        
+        }
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui/css/H-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui.admin/css/H-ui.admin.css" />
+<link rel="stylesheet" type="text/css" href="~/H-Ui/lib/Hui-iconfont/1.0.8/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui.admin/skin/default/skin.css" id="skin" />
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui.admin/css/style.css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<title>员工管理</title>
+</head>
+<body>
+
+    <nav class="breadcrumb"><i class="Hui-iconfont"></i> 首页 <span class="c-gray en">&gt;</span> 员工信息   <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="/Employ/Index" title="刷新"><i class="Hui-iconfont"></i></a></nav>
+
+<div class="pd-20">
+  <div class="text-c">
+   
+       <form id="queryform">
+            <input type="hidden" id="currentPage" name="currentPage" />
+  员工姓名：<input type="text" class="input-text" style="width:250px" placeholder="输入员工姓名" id="userName" name="userName"/>
+   员工编号：<input type="text" class="input-text" style="width:250px" placeholder="输入员工编号" id="userNum" name="userNum"/>
+           <select id="selipt" name="checktype" itemid="2">
+              
+               <option value="-1">请选择</option>
+               <option value="0">在职</option>
+               <option value="1">离职</option>
+                <option value="2">实习</option>
+               <option value="3">退休</option>
+           </select>
+      <button type="button" class="btn btn-success" id="seachBtn" name=""><i class="icon-search"></i> 搜用户</button>
+   
+
+           </form>
+
+  </div>
+  <div class="cl pd-5 bg-1 bk-gray mt-20">
+    <span id="fireDel"><a href="javascript:;" class="btn btn-danger radius"><i class="icon-trash"></i>批量删除</a></span>
+  </div>
+  <table id="maintable" class="table table-border table-bordered table-hover table-bg table-sort">
+    <thead>
+      <tr class="text-c">
+        <th><input type="checkbox" name="" value=""></th>
+        <th>编号</th>
+        <th>用户名</th>
+        <th>真实姓名</th>
+        <th>电话</th>
+        <th>邮箱</th>
+        <th>地址</th>
+       <th>性别</th>
+          <th>年龄</th>
+        <th>入职时间</th>
+          <th>离职时间</th>
+        <th>状态</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (OA_System.UserInfo item in ulist)
+            {
+                
+            
+      <tr class="text-c">
+        <td><input type="checkbox" value="@item.ID"  class="userNum" name="userNum"></td>
+        <td>@item.UserNum</td>
+       <td>@item.LoginName</td>
+          <td>@item.UserName</td>
+        <td>@item.UserTel</td>
+        <td>@item.UserEmail</td>
+        <td>@item.UserAddress</td>
+          
+        @{
+            
+                if (item.UserSex == 0)
+                {
+                    <td>男</td>;
+                }
+                else
+                {
+                   <td>女</td>;
+                }
+            
+            }
+        <td class="text-l">@item.UserAge</td>
+        <td>@item.EntryTime</td>
+          <td>@item.QuitId</td>
+          @{
+              if(item.OccupationalStatus==0){
+        <td class="user-status"><span class="label label-success">在职</span></td>
+             }
+                if (item.OccupationalStatus == 1)
+                {
+                        <td class="user-status"><span class="label label-success" style="background:red;">离职</span></td>
+                }
+                
+               
+                
+                   if (item.OccupationalStatus == 2)
+                {
+                        <td class="user-status"><span class="label label-success" style="background-color:black;">实习</span></td>
+                }
+                if (item.OccupationalStatus == 3)
+                {
+                     <td class="user-status"><span class="label label-success" style="background-color:purple;">退休</span></td>
+                }
+          }
+        <td ><a title="解雇" href="#" style="text-decoration:none" class="fireBtn"><i class="Hui-iconfont"></i></a>
+
+            <a title="编辑" href="#"  style="text-decoration:none" class="seachBtn"><i class="Hui-iconfont"></i></a>
+
+        </td>
+            
+      </tr>
+            }
+        }
+    </tbody>
+  </table>
+    <div>
+            <ul class="pagination" id="pagination1"> </ul>
+        </div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="~/H-Ui/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="~/H-Ui/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="~/H-Ui/static/h-ui/js/H-ui.min.js"></script> 
+    <script src="~/JS/layer/layer.js"></script>
+    <script src="~/JS/jqPaginator.js"></script>
+    <link href="~/JS/Style/page.css" rel="stylesheet" />
+<!--/_footer 作为公共模版分离出去-->
+
+    <script>
+       
+
+        $(function () {
+
+
+            $(".seachBtn").click(function(){
+            
+                //得到当点击的行
+               
+                var ctr=$(this).parent().parent();
+
+                //得到当前选中的td中input的value值
+
+                var inputVal=ctr.find("td").find("input[type='checkbox']").val();
+
+                if(inputVal!="")
+                {
+                    location.href="/Employ/SeachEmployById?Id="+inputVal;
+                }
+            
+            
+            
+            });
+
+          //批量删除
+            $("#fireDel").click(function(){
+             
+                //获取勾选中的长度
+             
+                var userId="";
+
+                $("#maintable").find("input[type='checkbox']:checked").each(function (){
+                
+                    userId += $(this).val()+",";
+                 
+                    if(userId!=""){
+
+                        layer.open({
+                            title:'温馨提示',
+                            content:'确定删除吗？',
+                            btn:['确定'],
+                            yes:function(){
+                                $.ajax({
+                    
+                                    url:"/Employ/DelEmployByNum",
+                                    type:"post",
+                                    data:{userId:userId},
+                                    success:function(resultData){
+                        
+                                        if(resultData.message=="success")
+                                        {
+                                            location.href="/Employ/Index";
+                                        }
+                        
+                                    }
+                    
+                                });
+                       
+                            }
+
+                
+                        });
+                    }else
+                    {
+                  
+                        layer.open({
+                            title:'温馨提示',
+                            content:'请选择员工',
+                            btn:['确定'],
+                            yes:function(){
+                                layer.closeAll();
+                        
+                            }
+                    
+                        });
+                   
+                    }
+                
+       
+                });
+            });
+
+            //单个员工解雇员工解雇
+
+            $(".fireBtn").click(function(){
+            
+                var ctr=$(this).parent().parent();
+                var ctd = ctr.find("td");
+                var userId = ctd.find("input[type='checkbox']").val();
+                var status=ctd.eq(11).children().html();
+              
+              
+               
+                if(userId!=""){
+
+                    if(status=="离职")
+                    {
+                       
+                       
+                        layer.open({
+                            title:'温馨提示',
+                            content:'该员工也离职',
+                            btn:['确定'],
+                            yes:function(){
+                        
+                                layer.closeAll();
+                                          
+                            }
+                    
+                        });
+                  
+                    }else{
+
+                        layer.open({
+                    
+                            title:'员工解雇',
+                            content:'确定解雇吗？',
+                            btn:['确定'],
+                            yes:function(){
+                        
+                                $.ajax({
+
+                                    url:"/Employ/FireEmployByNum",
+                                    data:{userId:userId},
+                                    type:"post",
+                                    success: function(resultData){
+                                
+                                        if(resultData.message=="success")
+                                        {
+                                            layer.open({
+                                                title:'温馨提示',
+                                                content:'解雇成功',
+                                                btn:['确定'],
+                                                yes:function(){
+                                                    location.href="/Employ/Index";
+                                                }
+                                            });
+                                            
+                                        }
+                                    
+                                
+                                    }
+
+                                })
+                        
+                            }
+                    
+                        });
+                    }
+                }else
+                {
+                    layer.open({
+                        title:'温馨提示',
+                        content:'请选择员工',
+                        btn:['确定'],
+                        yes:function(){
+                            layer.closeAll();
+                        
+                        }
+                    
+                    });
+                }
+                
+               
+              
+            
+            });
+
+
+            $("#seachBtn").click(function () {
+                $("#currentPage").val(1);
+                $("#queryform").submit();
+            
+            });
+
+            $("#selipt").change(function(){
+            
+                $("#currentPage").val(1);
+                $("#queryform").submit();
+            });
+
+            //默认选中下拉列表框
+            @{
+                int count = Convert.ToInt32(ViewBag.count);
+                }
+
+            $("#checktype").val(@ViewBag.chose);
+
+
+            $.jqPaginator("#pagination1", {
+                totalPages:@count,
+                visiblePages: 10,
+                currentPage:@ViewBag.currentPage,
+                first: '<li class="first"><a href="javascript:;">首页</a></li>',
+                prev: '<li class="prev"><a href="javascript:;">上一页</a></li>',
+                next: '<li class="next"><a href="javascript:;">下一页</a></li>',
+                last: '<li class="last"><a href="javascript:;">尾页</a></li>',
+                page: '<li class="page"><a href="javascript:;">{{page}}</a></li>',
+                onPageChange: function (num, type) {
+
+                    if (type != "init") {
+                        
+
+                        //赋值当前页
+
+                        $("#currentPage").val(num);
+
+                        $("#queryform").submit();
+                    }
+
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>

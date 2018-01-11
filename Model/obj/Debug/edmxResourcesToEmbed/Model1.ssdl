@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OA_ItemModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="OA_ItemModelStoreContainer">
+    <EntitySet Name="ApprovalDescibe" EntityType="OA_ItemModel.Store.ApprovalDescibe" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ApprovalForm" EntityType="OA_ItemModel.Store.ApprovalForm" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AttendanceRecordInfo" EntityType="OA_ItemModel.Store.AttendanceRecordInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="AttendanceSheet" EntityType="OA_ItemModel.Store.AttendanceSheet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="departmentInfo" EntityType="OA_ItemModel.Store.departmentInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MailboxTable" EntityType="OA_ItemModel.Store.MailboxTable" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="NoticeInfo" EntityType="OA_ItemModel.Store.NoticeInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PermissionsInfo" EntityType="OA_ItemModel.Store.PermissionsInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PositionInfo" EntityType="OA_ItemModel.Store.PositionInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PremissAsUser" EntityType="OA_ItemModel.Store.PremissAsUser" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SalaryTable" EntityType="OA_ItemModel.Store.SalaryTable" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserInfo" EntityType="OA_ItemModel.Store.UserInfo" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="ApprovalDescibe">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ApprovalId" Type="int" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="CompleteTime" Type="varchar" MaxLength="60" />
+  </EntityType>
+  <EntityType Name="ApprovalForm">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ApprovalName" Type="text" />
+    <Property Name="ApprovalContent" Type="text" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="ApprovalStatus" Type="int" />
+    <Property Name="ApprovalTime" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="AttendanceRecordInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="SignInTime" Type="varchar" MaxLength="60" />
+    <Property Name="ReturnTime" Type="varchar" MaxLength="60" />
+    <Property Name="IsStatus" Type="int" />
+    <Property Name="AttendDescribe" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="AttendanceSheet">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="WorkTime" Type="varchar" MaxLength="100" />
+    <Property Name="ClosingTime" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="departmentInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="DepartId" Type="int" />
+    <Property Name="DepartmentName" Type="varchar" MaxLength="50" />
+    <Property Name="DepartmentDescribe" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="MailboxTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="MailSend" Type="varchar" MaxLength="50" />
+    <Property Name="MailReceive" Type="varchar" MaxLength="50" />
+    <Property Name="IsStatus" Type="int" />
+    <Property Name="MailTime" Type="varchar" MaxLength="60" />
+    <Property Name="MailContent" Type="text" />
+  </EntityType>
+  <EntityType Name="NoticeInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="NoticeTitle" Type="varchar" MaxLength="50" />
+    <Property Name="NoticeContent" Type="text" />
+    <Property Name="WriteTime" Type="varchar" MaxLength="60" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="IsStatus" Type="int" />
+  </EntityType>
+  <EntityType Name="PermissionsInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="fatherId" Type="varchar" MaxLength="50" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PositionInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="PositionId" Type="int" />
+    <Property Name="PositionName" Type="varchar" MaxLength="50" />
+    <Property Name="PositionDescribe" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="PremissAsUser">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ParenId" Type="varchar" MaxLength="100" />
+    <Property Name="PremissId" Type="varchar" MaxLength="50" />
+    <Property Name="PremissUrl" Type="varchar" MaxLength="100" />
+    <Property Name="PremissName" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="SalaryTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="PositionSalary" Type="int" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="varchar" MaxLength="60" />
+    <Property Name="LoginName" Type="varchar" MaxLength="60" />
+    <Property Name="UserPwd" Type="varchar" MaxLength="30" />
+    <Property Name="UserAge" Type="int" />
+    <Property Name="UserSex" Type="int" />
+    <Property Name="UserTel" Type="varchar" MaxLength="20" />
+    <Property Name="UserEmail" Type="varchar" MaxLength="60" />
+    <Property Name="UserAddress" Type="varchar" MaxLength="200" />
+    <Property Name="BuMenId" Type="int" />
+    <Property Name="ZhiWeiId" Type="int" />
+    <Property Name="EntryTime" Type="varchar" MaxLength="50" />
+    <Property Name="HeadImg" Type="varchar" MaxLength="70" />
+    <Property Name="QuitId" Type="varchar" MaxLength="50" />
+    <Property Name="XueLi" Type="varchar" MaxLength="30" />
+    <Property Name="OccupationalStatus" Type="int" />
+  </EntityType>
+</Schema>

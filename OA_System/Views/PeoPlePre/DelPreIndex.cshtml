@@ -1,0 +1,310 @@
+﻿
+
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<link rel="Bookmark" href="/favicon.ico">
+<link rel="Shortcut Icon" href="/favicon.ico">
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui/css/H-ui.min.css">
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui.admin/css/H-ui.admin.css">
+<link rel="stylesheet" type="text/css" href="~/H-Ui/lib/Hui-iconfont/1.0.8/iconfont.css">
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui.admin/skin/default/skin.css" id="skin">
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui.admin/css/style.css">
+</head>
+
+<body>
+<article class="page-container">
+	<form novalidate="novalidate" method="post" class="form form-horizontal" id="form-admin-role-add">
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">部门：</label>
+		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select aria-invalid="false" aria-required="true" id="depetSel" class="select valid" name="adminRole" size="1">
+			
+			</select><label for="adminRole" class="error valid" id="adminRole-error1"></label>
+			</span> </div>
+	</div>
+	 <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">职位：</label>
+		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select aria-invalid="false" id="posotion" aria-required="true" class="select valid" name="adminRole" size="1">
+				
+			</select><label for="adminRole" class="error valid" id="adminRole-error2"></label>
+			</span> </div>
+	</div>
+
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">员工：</label>
+		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select aria-invalid="false" id="employee" aria-required="true" class="select valid" name="adminRole" size="1">
+				
+			</select><label for="adminRole" class="error valid" id="adminRole-error"></label>
+			</span> </div>
+	</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">权限：</label>
+			<div class="formControls col-xs-8 col-sm-9" hidden="hidden" id="HideenDiv">
+
+         
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<button type="submit" class="btn btn-success radius" id="admin-role-save" name="admin-role-save"><i class="icon-ok"></i> 确定</button>
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="~/H-Ui/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="~/H-Ui/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="~/H-Ui/static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="~/H-Ui/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="~/H-Ui/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="~/H-Ui/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="~/H-Ui/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+    $(function () {
+        
+
+    //给部门下拉列表框添加值
+
+	$.ajax({
+	    url: '/PeoPlePre/addDepetContent',
+	    type: 'get',
+	    success: function (result) {
+
+	        if (result.message=="success")
+	        {
+	            var content = "";
+	            content += "<option value='-1'>请选择</option>";
+	            for (var i = 0; i < result.data.length; i++) {
+	                content += "<option value=" + result.data[i].DepartId + ">" + result.data[i].DepartmentName + "</option>";
+	            }
+
+	            $("#depetSel").html(content);
+
+	        }
+
+	    }
+
+	   
+       
+	});
+    
+	$("#depetSel").change(function () {
+
+	    var bumen = $("#depetSel").val();
+
+	    $.ajax({
+
+	        url: '/PeoPlePre/SelPosition',
+	        type: 'post',
+	        data: { bumen: bumen },
+	        success: function (result) {
+
+	            if (result.message == "success") {
+	                var content = "";
+	                content += "<option value='-1'>请选择</option>";
+	                for (var i = 0; i < result.data.length; i++) {
+
+	                    content += "<option value=" + result.data[i].PositionId + ">" + result.data[i].PositionName + "</option>";
+
+	                }
+
+	                $("#posotion").html(content);
+	            }
+
+	        }
+
+	    });
+
+	});
+
+        //给职位下列表框 添加单击事件
+
+	$("#posotion").change(function () {
+
+	    var posId = $("#posotion").val();
+	    var bumen = $("#depetSel").val();
+	    $.ajax({
+
+	        url: '/PeoPlePre/SelEmployee',
+	        type: 'post',
+	        data: { posId: posId, bumen: bumen },
+	        success: function (result) {
+
+	            if (result.message == "success") {
+
+	                var content = "";
+	                content += "<option value='-1'>请选择</option>";
+
+	                for (var i = 0; i < result.data.length; i++) {
+
+	                    content += "<option value=" + result.data[i].UserNum + ">" + result.data[i].UserName + "</option>";
+
+	                }
+
+	                $("#employee").html(content);
+
+	            }
+
+	        }
+
+	    });
+
+
+	});
+
+
+
+
+    //给员工下拉列表框 添加改变事件
+   
+	$("#employee").change(function () {
+	    
+	    var employeeNum = $("#employee").val();
+        
+	    $.ajax({
+
+	        url: '/PeoPlePre/SelEmployeePre',
+	        type: 'post',
+	        data: { employeeNum: employeeNum },
+	        success: function (result) {
+                
+	            if (result.message == "success")
+	            {
+	             
+	                $("#HideenDiv").prop("hidden", false);
+
+	                var content = "";
+	               
+	                for (var i = 0; i < result.data.Pulist.length; i++) {
+
+	                    content += "<dl class='permission-list'>";
+
+	                    content += "<dt>";
+
+	                    content += "<label><input value=" + result.data.Pulist[i].PremissId + " name='user-Character-0' id='user-Character-0' type='checkbox'>" + result.data.Pulist[i].PremissName + "</label>";
+
+	                    content += "</dt>";
+
+	                    content += "<dd class='premissionList'>";
+
+	                    for (var j = 0; j < result.data.plist.length; j++) {
+	                        if (result.data.Pulist[i].PremissId == result.data.plist[j].ParenId)
+	                        {
+	                            content += "<label><input value=" + result.data.plist[j].PremissId + " name='user-Character-0' id='user-Character-0' type='checkbox'>" + result.data.plist[j].PremissName + "</label>";
+	                        }
+
+	                    }
+
+	                    content += "</dd>";
+
+
+	                    content += "</dl>";
+	                }
+	                
+	                $("#HideenDiv").html(content);
+
+	                $(".permission-list dt input:checkbox").click(function () {
+	                    $(this).closest("dl").find("dd input:checkbox").prop("checked", $(this).prop("checked"));
+	                });
+	                $(".premissionList input:checkbox").click(function () {
+
+	                    $(this).closest("dl").find("dt input:checkbox").prop("checked", $(this).closest("dl").find(" dd input:checkbox").length == $(this).closest("dl").find(" dd input:checkbox:checked").length);
+	                    
+	                });
+	               
+
+	            }
+
+	            if (result.message == "failure")
+	            {
+	                layer.open({
+	                    title: '温馨提示',
+	                    content: '该员工未拥有任何权限',
+	                    btn: '确定',
+	                    success: function () {
+	                        layer.closeAll();
+	                    }
+	                });
+	            }
+
+	        }
+            
+
+	    });
+
+	});
+
+	
+
+
+
+        //给提交按钮添加单击事件
+
+	$("#admin-role-save").click(function () {
+
+
+	    var employeeNum = $("#employee").val();
+	    var preStr = "";
+
+	    $("#form-admin-role-add").find("input[type='checkbox']:checked").each(function () {
+
+	        preStr += $(this).val() + ",";
+
+	    });
+
+	    $.ajax({
+	        url: '/PeoPlePre/DelPre',
+	        type: 'post',
+	        data: {PreStr:preStr,employeeNum:employeeNum},
+	        success: function (result) {
+	            if (result.message == "success") {
+	                layer.open({
+	                    title: '温馨提示',
+	                    content: '权限解除成功',
+	                    btn: ['确定'],
+	                    yes: function () {
+	                        layer.closeAll();
+	                        location.href = "/PeoPlePre/DelPreIndex";
+	                    }
+	                });
+
+	            }
+
+	            if (result.message == "failure")
+	            {
+	                layer.open({
+	                    title: '温馨提示',
+	                    content: '需要解除的权限为空',
+	                    btn: ['确定'],
+	                    yes: function () {
+	                        layer.closeAll();
+	                        location.href = "/PeoPlePre/DelPreIndex";
+	                    }
+	                });
+	            }
+
+	        }
+
+	    });
+
+	});
+ });
+
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+
+</body>

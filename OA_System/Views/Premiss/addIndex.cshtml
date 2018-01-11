@@ -1,0 +1,187 @@
+﻿
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui/css/H-ui.min.css">
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui.admin/css/H-ui.admin.css">
+<link rel="stylesheet" type="text/css" href="~/H-Ui/lib/Hui-iconfont/1.0.8/iconfont.css">
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui.admin/skin/default/skin.css" id="skin">
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui.admin/css/style.css">
+
+
+<body>
+    <nav class="breadcrumb"><i class="Hui-iconfont"></i> 首页 <span class="c-gray en">&gt;</span> 权限信息 <span class="c-gray en">&gt;</span> 修改权限 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont"></i></a></nav>
+<article class="page-container">
+	<form novalidate="novalidate" class="form form-horizontal" id="form-admin-add">
+
+
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限名称：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input class="input-text" value="" placeholder="权限名称" id="PremissName" name="PremissName" type="text">
+		</div>
+	</div>
+
+        <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限跳转路径：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input class="input-text" value="" placeholder="跳转路径" id="PremissUrl" name="PremissUrl" type="text">
+		</div>
+	</div>
+
+       
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>是否为父级：</label>
+		<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+			<div class="radio-box">
+				<div><input style="position:absolute; top:5px; display: block; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% rgb(255, 255, 255); border: 0px none;" name="sex" id="sex-1" value="0" type="radio"></div>
+				<label class="" for="sex-1" style="margin-left:15px;">是</label>
+			</div>
+			<div class="radio-box">
+				<div><input style="position: absolute;  top:5px; display: block; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% rgb(255, 255, 255); border: 0px none;" id="sex-2" name="sex" value="1" type="radio"></div>
+				<label class="" style="margin-left:15px;" for="sex-2">否</label>
+			</div>
+		</div>
+	</div>
+
+        <div class="row cl" id="selPress" hidden="hidden">
+		<label class="form-label col-xs-4 col-sm-3">父级权限：</label>
+		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select aria-invalid="false" aria-required="true" id="selTrue" class="select valid" name="adminRole" size="1">
+				
+			</select><label style="display: block;" for="adminRole" class="error valid" id="adminRole-error"></label>
+			</span> </div>
+	</div>
+
+	<div class="row cl">
+		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+			<input class="btn btn-primary radius" id="submitBtn" value="&nbsp;&nbsp;提交&nbsp;&nbsp;" type="button">
+		</div>
+	</div>
+	</form>
+</article>
+    <script src="~/JS/jquery-1.9.1.min.js"></script>
+    <script src="~/JS/layer/layer.js"></script>
+
+    <script>
+        $(function () {
+
+
+            //给下拉列表框 添加内容
+
+            $.ajax({
+            
+                url: '/Premiss/SelPressAdd',
+                type: 'get',
+                success: function (result) {
+                    if (result.message = 'success')
+                    {
+                        var content = "";
+                        content += "<option value='-1'>请选择</option>";
+                        
+                        for (var i = 0; i < result.data.length; i++) {
+
+                            content += "<option value=" + result.data[i].PremissId + ">" + result.data[i].PremissName + "</option>";
+
+                        }
+
+                        $("#selTrue").html(content);
+                    }
+                }
+            });
+            //给单选按钮添加单击事件
+            $("#form-admin-add").find("input[type='radio']").click(function () {
+                
+                if ($("#form-admin-add").find("input[type='radio']").eq(0).prop("checked") == true)
+                {
+                    $("#selPress").prop("hidden",true);
+                }
+
+                if ($("#form-admin-add").find("input[type='radio']").eq(1).prop("checked") == true) {
+                    $("#selPress").prop("hidden", false);
+                }
+
+
+            });
+
+
+
+
+            //提交到后台数据
+
+            $("#submitBtn").click(function () {
+
+                //判断非空
+
+                var PremissName = $("#PremissName").val();
+                if (PremissName == "") {
+                    layer.open({
+                        title: '温馨提示',
+                        content: '权限名称不能为空！',
+                        btn: ['确定'],
+                        yes: function () {
+                            layer.closeAll();
+                        }
+                    });
+
+                    return;
+                }
+
+                var PremissUrl = $("#PremissUrl").val();
+
+                if (PremissUrl == "") {
+                    layer.open({
+                        title: '温馨提示',
+                        content: '跳转路径不能为空',
+                        btn: ['确定'],
+                        yes: function () {
+                            layer.closeAll();
+                        }
+                    });
+                    return;
+                }
+
+                var parentId = $("#selTrue").val();
+
+                var checkIs = $("#form-admin-add").find("input[type='radio']:checked").val();
+
+                $.ajax({
+
+                    url: '/Premiss/Addpress',
+                    type: 'post',
+                    data: { PremissName: PremissName, PremissUrl: PremissUrl, parentId: parentId, checkIs: checkIs },
+                    success: function (result) {
+
+                        if (result.message == "success") {
+                            layer.open({
+                                title: '温馨提示',
+                                content: '添加成功！',
+                                btn: ['确定'],
+                                yes: function () {
+                                    layer.closeAll();
+                                }
+                            });
+                        } else {
+                            layer.open({
+                                title: '温馨提示',
+                                content: '添加失败！',
+                                btn: ['确定'],
+                                yes: function () {
+                                    layer.closeAll();
+                                }
+                            });
+                        }
+                    }
+
+                });
+
+            });
+
+
+        });
+
+
+    </script>
+
+
+   
+</body>
+
+

@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="OA_ItemModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="OA_ItemEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="ApprovalDescibe" EntityType="OA_ItemModel.ApprovalDescibe" />
+    <EntitySet Name="ApprovalForm" EntityType="OA_ItemModel.ApprovalForm" />
+    <EntitySet Name="AttendanceRecordInfo" EntityType="OA_ItemModel.AttendanceRecordInfo" />
+    <EntitySet Name="AttendanceSheet" EntityType="OA_ItemModel.AttendanceSheet" />
+    <EntitySet Name="departmentInfo" EntityType="OA_ItemModel.departmentInfo" />
+    <EntitySet Name="MailboxTable" EntityType="OA_ItemModel.MailboxTable" />
+    <EntitySet Name="NoticeInfo" EntityType="OA_ItemModel.NoticeInfo" />
+    <EntitySet Name="PermissionsInfo" EntityType="OA_ItemModel.PermissionsInfo" />
+    <EntitySet Name="PositionInfo" EntityType="OA_ItemModel.PositionInfo" />
+    <EntitySet Name="PremissAsUser" EntityType="OA_ItemModel.PremissAsUser" />
+    <EntitySet Name="SalaryTable" EntityType="OA_ItemModel.SalaryTable" />
+    <EntitySet Name="UserInfo" EntityType="OA_ItemModel.UserInfo" />
+  </EntityContainer>
+  <EntityType Name="ApprovalDescibe">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ApprovalId" Type="Int32" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="CompleteTime" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="ApprovalForm">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ApprovalName" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="ApprovalContent" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="ApprovalStatus" Type="Int32" />
+    <Property Name="ApprovalTime" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="AttendanceRecordInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="SignInTime" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
+    <Property Name="ReturnTime" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
+    <Property Name="IsStatus" Type="Int32" />
+    <Property Name="AttendDescribe" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="AttendanceSheet">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="WorkTime" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="ClosingTime" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="departmentInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="DepartId" Type="Int32" />
+    <Property Name="DepartmentName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="DepartmentDescribe" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="MailboxTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="MailSend" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="MailReceive" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="IsStatus" Type="Int32" />
+    <Property Name="MailTime" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
+    <Property Name="MailContent" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="NoticeInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="NoticeTitle" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="NoticeContent" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="WriteTime" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="IsStatus" Type="Int32" />
+  </EntityType>
+  <EntityType Name="PermissionsInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="fatherId" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="UserName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="PositionInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="PositionId" Type="Int32" />
+    <Property Name="PositionName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="PositionDescribe" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="PremissAsUser">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ParenId" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="PremissId" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="PremissUrl" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="PremissName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="SalaryTable">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="PositionSalary" Type="Int32" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
+    <Property Name="LoginName" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
+    <Property Name="UserPwd" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="UserAge" Type="Int32" />
+    <Property Name="UserSex" Type="Int32" />
+    <Property Name="UserTel" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="UserEmail" Type="String" MaxLength="60" Unicode="false" FixedLength="false" />
+    <Property Name="UserAddress" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="BuMenId" Type="Int32" />
+    <Property Name="ZhiWeiId" Type="Int32" />
+    <Property Name="EntryTime" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="HeadImg" Type="String" MaxLength="70" Unicode="false" FixedLength="false" />
+    <Property Name="QuitId" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="XueLi" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+    <Property Name="OccupationalStatus" Type="Int32" />
+  </EntityType>
+</Schema>

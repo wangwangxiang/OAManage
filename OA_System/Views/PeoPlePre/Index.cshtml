@@ -1,0 +1,335 @@
+﻿
+
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<link rel="Bookmark" href="/favicon.ico">
+<link rel="Shortcut Icon" href="/favicon.ico">
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5shiv.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui/css/H-ui.min.css">
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui.admin/css/H-ui.admin.css">
+<link rel="stylesheet" type="text/css" href="~/H-Ui/lib/Hui-iconfont/1.0.8/iconfont.css">
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui.admin/skin/default/skin.css" id="skin">
+<link rel="stylesheet" type="text/css" href="~/H-Ui/static/h-ui.admin/css/style.css">
+</head>
+
+@{
+    List<OA_System.PremissAsUser> plist = ViewBag.pList as List<OA_System.PremissAsUser>;
+
+    List<OA_System.PremissAsUser> pulist = ViewBag.puList as List<OA_System.PremissAsUser>;
+    
+    
+    }
+
+<body>
+<article class="page-container">
+	<form novalidate="novalidate" method="post" class="form form-horizontal" id="form-admin-role-add">
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">部门：</label>
+		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select aria-invalid="false" aria-required="true" id="depetSel" class="select valid" name="adminRole" size="1">
+			
+			</select><label for="adminRole" class="error valid" id="adminRole-error1"></label>
+			</span> </div>
+	</div>
+
+        <div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">职位：</label>
+		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select aria-invalid="false" id="posotion" aria-required="true" class="select valid" name="adminRole" size="1">
+				
+			</select><label for="adminRole" class="error valid" id="adminRole-error2"></label>
+			</span> </div>
+	</div>
+
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3">员工：</label>
+		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select aria-invalid="false" id="employee" aria-required="true" class="select valid" name="adminRole" size="1">
+				
+			</select><label for="adminRole" class="error valid" id="adminRole-error"></label>
+			</span> </div>
+	</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">权限：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+
+                @{
+                    foreach (var item in pulist)
+                    {
+                        
+                    
+				<dl class="permission-list">
+					<dt>
+						<label>
+							<input value="@item.PremissId" name="user-Character-0" id="user-Character-0" type="checkbox">
+							@item.PremissName</label>
+					</dt>
+				  
+                         
+							<dd class="premissionList">
+                             @{
+                                foreach (var item1 in plist)
+                                {
+                            
+                                if(item.PremissId==item1.ParenId)
+                                {
+								<label class="">
+								<input value="@item1.PremissId" name="user-Character-0-0-0" id="user-Character-0-0-0" type="checkbox">
+								@item1.PremissName</label>
+                             }
+							
+                                }
+                                
+                             }
+							</dd>
+                          
+						
+				</dl>
+                    }
+                }
+
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<button type="submit" class="btn btn-success radius" id="admin-role-save" name="admin-role-save"><i class="icon-ok"></i> 确定</button>
+			</div>
+		</div>
+	</form>
+</article>
+
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="~/H-Ui/lib/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="~/H-Ui/lib/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="~/H-Ui/static/h-ui/js/H-ui.min.js"></script> 
+<script type="text/javascript" src="~/H-Ui/static/h-ui.admin/js/H-ui.admin.js"></script> <!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="~/H-Ui/lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="~/H-Ui/lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="~/H-Ui/lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript">
+$(function(){
+	$(".permission-list dt input:checkbox").click(function(){
+		$(this).closest("dl").find("dd input:checkbox").prop("checked",$(this).prop("checked"));
+	});
+	$(".premissionList input:checkbox").click(function () {
+
+	    $(this).closest("dl").find("dt input:checkbox").prop("checked", $(this).prop("checked"));
+
+	});
+	
+	$("#form-admin-role-add").validate({
+		rules:{
+			roleName:{
+				required:true,
+			},
+		},
+		onkeyup:false,
+		focusCleanup:true,
+		success:"valid",
+		submitHandler:function(form){
+			$(form).ajaxSubmit();
+			var index = parent.layer.getFrameIndex(window.name);
+			parent.layer.close(index);
+		}
+	});
+
+
+    //给部门下拉列表框添加值
+
+	$.ajax({
+	    url: '/PeoPlePre/addDepetContent',
+	    type: 'get',
+	    success: function (result) {
+
+	        if (result.message=="success")
+	        {
+	            var content = "";
+	            content += "<option value='-1'>请选择</option>";
+	            for (var i = 0; i < result.data.length; i++) {
+	                content += "<option value=" + result.data[i].DepartId + ">" + result.data[i].DepartmentName + "</option>";
+	            }
+
+	            $("#depetSel").html(content);
+
+	        }
+
+	    }
+
+	   
+       
+	});
+
+
+    //给部门下拉列表框 添加单击事件
+
+	$("#depetSel").change(function () {
+
+	    var bumen = $("#depetSel").val();
+
+	    $.ajax({
+
+	        url: '/PeoPlePre/SelPosition',
+	        type: 'post',
+	        data: {bumen:bumen},
+	        success: function (result) {
+
+	            if (result.message == "success")
+	            {
+	                var content = "";
+	                content += "<option value='-1'>请选择</option>";
+	                for (var i = 0; i < result.data.length; i++) {
+
+	                    content += "<option value=" + result.data[i].PositionId + ">" + result.data[i].PositionName + "</option>";
+
+	                }
+
+	                $("#posotion").html(content);
+	            }
+
+	        }
+
+	    });
+
+	});
+
+    //给职位下列表框 添加单击事件
+
+	$("#posotion").change(function () {
+	   
+	    var posId = $("#posotion").val();
+	    var bumen = $("#depetSel").val();
+	    $.ajax({
+
+	        url: '/PeoPlePre/SelEmployee',
+	        type: 'post',
+	        data: {posId:posId,bumen:bumen},
+	        success: function (result) {
+	         
+	            if (result.message == "success")
+	            {
+	               
+	                var content = "";
+	                content += "<option value='-1'>请选择</option>";
+
+	                for (var i = 0; i < result.data.length; i++) {
+
+	                    content += "<option value="+result.data[i].UserNum+">"+result.data[i].UserName+"</option>";
+
+	                }
+
+	                $("#employee").html(content);
+
+	            }
+
+	        }
+
+	    });
+
+
+	});
+	
+	    
+    
+
+    //验证非空
+	$("#admin-role-save").click(function () {
+        //所选部门
+	    var bumen = $("#depetSel").val();
+	    //所选人员
+	    var renyuan = $("#employee").val();
+
+
+
+	    if (bumen == "-1")
+	    {
+	        layer.open({
+
+	            title: '温馨提示',
+	            content: '请选择部门',
+	            btn: ['确定'],
+	            yes: function () {
+	                layer.closeAll();
+	            }
+	        });
+	        return;
+	    }
+	    if (renyuan == "-1")
+	    {
+	        layer.open({
+	            title: '温馨提示',
+	            content: '请选择人员',
+	            btn: ['确定'],
+	            yes: function () {
+	                layer.closeAll();
+	            }
+	        });
+	        return;
+	    }
+
+	    var preContent = "";
+
+	    $("#form-admin-role-add").find("input[type='checkbox']:checked").each(function () {
+
+	        preContent += $(this).val() + ",";
+
+
+	    });
+
+	  
+
+	    $.ajax({
+	        url: '/PeoPlePre/perSonalAdd',
+	        type: 'post',
+	        data: {preDate:preContent,bumen:bumen,renyuan:renyuan},
+	        success: function (reuslt) {
+	            if (reuslt.message == "success")
+	            {
+	                layer.open({
+
+	                    title: '温馨提示',
+	                    content: '授权成功',
+	                    btn: ['确定'],
+	                    yes: function () {
+	                        layer.closeAll();
+	                        location.href = "/PeoPlePre/Index";
+	                    }
+	                });
+	            }
+
+	            if (reuslt.message == "failrue")
+	            {
+	                layer.open({
+
+	                    title: '温馨提示',
+	                    content: '也拥有赋予的权限',
+	                    btn: ['确定'],
+	                    yes: function () {
+	                        layer.closeAll();
+	                    }
+	                });
+	            }
+	            
+	        }
+           
+
+	    });
+
+	   
+
+	});
+
+
+});
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+
+</body>
